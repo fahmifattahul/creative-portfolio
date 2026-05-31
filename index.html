@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>STUDIO // SYL — Systems & Automation Engineer</title>
+    <!-- Google Fonts: Space Mono (Headings/UI) & Plus Jakarta Sans (Body) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600&family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Premium Ambient Background Elements -->
+    <div class="noise-bg"></div>
+
+    <!-- Navigation Header -->
+    <header class="main-header">
+        <div class="logo">
+            <a href="#" id="brand-logo">STUDIO // SYL</a>
+        </div>
+        <nav class="nav-links">
+            <a href="#gallery" class="nav-link">WORK</a>
+            <a href="#about" class="nav-link">ABOUT</a>
+            <a href="#contact" class="nav-link">CONTACT</a>
+        </nav>
+    </header>
+
+    <!-- Main Content Container -->
+    <main>
+        <!-- Hero Section -->
+        <section id="hero" class="hero-section">
+            <div class="hero-content scroll-reveal">
+                <span class="hero-label">// SYSTEMS & AUTOMATION</span>
+                <h1 class="hero-title">WE BUILD ROBUST ENGINES AND SEAMLESS AUTOMATION FLOWS.</h1>
+                <p class="hero-subtitle">Engineering high-performance microservices, custom integration modules, and invisible background orchestrations that work in silence.</p>
+                <div class="hero-actions">
+                    <a href="#gallery" class="btn-primary">EXPLORE WORK ↓</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Gallery / Work Section -->
+        <section id="gallery" class="gallery-section">
+            <div class="section-header scroll-reveal">
+                <h2 class="section-title">SELECTED WORKS</h2>
+                <!-- Filter Controls -->
+                <div class="filter-controls">
+                    <button class="filter-btn active" data-filter="all">ALL [3]</button>
+                    <button class="filter-btn" data-filter="services">SERVICES</button>
+                    <button class="filter-btn" data-filter="automation">AUTOMATION</button>
+                    <button class="filter-btn" data-filter="modules">MODULES</button>
+                </div>
+            </div>
+
+            <!-- Grid Container -->
+            <div class="gallery-grid scroll-reveal">
+                <!-- Project 1 -->
+                <div class="project-card" data-category="services">
+                    <div class="card-image-wrapper">
+                        <img src="assets/project1.png" alt="Nexus API Gateway Mockup" class="project-img">
+                    </div>
+                    <div class="card-details">
+                        <div class="card-meta">
+                            <span class="project-num">01 / SERVICES</span>
+                            <span class="project-year">2026</span>
+                        </div>
+                        <h3 class="project-title">NEXUS GATEWAY</h3>
+                        <p class="project-desc">A high-performance containerized API gateway and microservice orchestrator with auto-scaling metrics.</p>
+                    </div>
+                </div>
+
+                <!-- Project 2 -->
+                <div class="project-card" data-category="automation">
+                    <div class="card-image-wrapper">
+                        <img src="assets/project2.png" alt="Pulse Bash Automation Pipeline" class="project-img">
+                    </div>
+                    <div class="card-details">
+                        <div class="card-meta">
+                            <span class="project-num">02 / AUTOMATION</span>
+                            <span class="project-year">2026</span>
+                        </div>
+                        <h3 class="project-title">PULSE BASH</h3>
+                        <p class="project-desc">Headless automation suite for real-time log ingestion, anomaly analysis, and instant developer alerts.</p>
+                    </div>
+                </div>
+
+                <!-- Project 3 -->
+                <div class="project-card" data-category="modules">
+                    <div class="card-image-wrapper">
+                        <img src="assets/project3.png" alt="Chronos Scheduler Library" class="project-img">
+                    </div>
+                    <div class="card-details">
+                        <div class="card-meta">
+                            <span class="project-num">03 / MODULES</span>
+                            <span class="project-year">2025</span>
+                        </div>
+                        <h3 class="project-title">CHRONOS LIBRARY</h3>
+                        <p class="project-desc">A lightweight, zero-dependency task scheduling module designed for low-latency asynchronous cron tasks.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- About Section -->
+        <section id="about" class="about-section">
+            <div class="about-grid">
+                <div class="about-tagline scroll-reveal">
+                    <span class="about-label">// PHILOSOPHY</span>
+                    <h2 class="about-title">AUTOMATING COMPLEXITY. STRUCTURING CHAOS.</h2>
+                </div>
+                <div class="about-text scroll-reveal">
+                    <p>We build quiet, highly-optimized backend engines, microservice architectures, and custom automation flows. While others focus on pixels and screens, we focus on the silent, robust systems that keep modern digital platforms running without a single manual click.</p>
+                    <p>Every line of code is written for efficiency, speed, and absolute reliability. We strip away the complexity of modern backends to engineer clean, modular systems for individuals and enterprises who value performance.</p>
+                    
+                    <!-- Stats Grid -->
+                    <div class="stats-grid">
+                        <div class="stat-item">
+                            <span class="stat-num">04+</span>
+                            <span class="stat-label">YEARS EXP</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-num">99.9%</span>
+                            <span class="stat-label">UPTIME</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-num">0.0</span>
+                            <span class="stat-label">MANUAL TASKS</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section id="contact" class="contact-section">
+            <div class="contact-wrapper">
+                <div class="contact-header scroll-reveal">
+                    <span class="contact-label">// START A PROJECT</span>
+                    <h2 class="contact-title">LET'S CONNECT.</h2>
+                    <p class="contact-subtitle">Have an interesting project or a technical idea? Drop a line and let's craft something premium together.</p>
+                </div>
+
+                <form class="contact-form scroll-reveal" id="portfolio-form" action="#" method="POST">
+                    <div class="form-row">
+                        <div class="input-group">
+                            <input type="text" id="name" name="name" required placeholder=" ">
+                            <label for="name">YOUR NAME *</label>
+                            <span class="border-line"></span>
+                        </div>
+                        <div class="input-group">
+                            <input type="email" id="email" name="email" required placeholder=" ">
+                            <label for="email">YOUR EMAIL *</label>
+                            <span class="border-line"></span>
+                        </div>
+                    </div>
+                    <div class="input-group">
+                        <textarea id="message" name="message" rows="5" required placeholder=" "></textarea>
+                        <label for="message">TELL US ABOUT THE PROJECT *</label>
+                        <span class="border-line"></span>
+                    </div>
+                    <button type="submit" class="btn-submit">
+                        SEND MESSAGE <span class="arrow">→</span>
+                    </button>
+                    <div class="form-feedback" id="form-feedback"></div>
+                </form>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="main-footer">
+        <div class="footer-content">
+            <div class="footer-info">
+                <span class="footer-logo">STUDIO // SYL</span>
+                <p class="footer-tagline">Crafting digital monoliths in silence.</p>
+            </div>
+            <div class="footer-links">
+                <a href="https://github.com" target="_blank" rel="noopener" class="footer-link">GITHUB ↗</a>
+                <a href="https://linkedin.com" target="_blank" rel="noopener" class="footer-link">LINKEDIN ↗</a>
+                <a href="https://twitter.com" target="_blank" rel="noopener" class="footer-link">TWITTER ↗</a>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <span>© 2026 STUDIO // SYL. ALL RIGHTS RESERVED.</span>
+            <span>BUILT WITH MONOCHROME PASSION.</span>
+        </div>
+    </footer>
+
+    <!-- Dynamic Retro-Brutalist Project Detail Modal -->
+    <div id="project-modal" class="modal-overlay" aria-hidden="true">
+        <div class="modal-container">
+            <button class="modal-close" id="modal-close-btn">CLOSE [X]</button>
+            <div class="modal-content" id="modal-content-area">
+                <!-- Dynamic Content Rendered by JavaScript -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Supabase JS Client library CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="app.js"></script>
+</body>
+</html>
