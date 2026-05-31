@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>STUDIO // SYL — ADMIN PORTAL</title>
+    <!-- Google Fonts: Space Mono & Plus Jakarta Sans -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600&family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Ambient Texture overlay -->
+    <div class="noise-bg"></div>
+
+    <!-- STATE 1: SECURE AUTHENTICATION DIALOG (LOGIN FORM) -->
+    <div id="login-state" class="admin-login-wrapper">
+        <form id="login-form" class="admin-login-box">
+            <h1 class="admin-login-logo">SYL // AUTH GATE</h1>
+            <div id="login-error" class="admin-login-error">ACCESS DENIED. INVALID CREDENTIALS.</div>
+            
+            <div class="admin-form-group">
+                <label for="login-email">ADMIN EMAIL *</label>
+                <input type="email" id="login-email" required placeholder="name@domain.com">
+            </div>
+            
+            <div class="admin-form-group">
+                <label for="login-password">SECURE PASSWORD *</label>
+                <input type="password" id="login-password" required placeholder="••••••••">
+            </div>
+            
+            <button type="submit" class="admin-btn admin-btn-accent" style="width: 100%;">
+                INITIALIZE SECURE ACCESS →
+            </button>
+        </form>
+    </div>
+
+    <!-- STATE 2: CRUD INTERFACE (ADMIN DASHBOARD) -->
+    <div id="dashboard-state" class="admin-dashboard-wrapper" style="display: none;">
+        <div class="admin-dashboard-container">
+            <!-- Portal Header -->
+            <header class="admin-header">
+                <h1 class="admin-title">STUDIO // SYL — ENGINE PORTAL</h1>
+                <div class="admin-user-info">
+                    <span id="admin-user-email">email@domain.com</span>
+                    <button id="signout-btn" class="admin-btn admin-action-delete">
+                        SIGN OUT [X]
+                    </button>
+                </div>
+            </header>
+
+            <!-- Dashboard Grid -->
+            <main class="admin-grid">
+                <!-- Column Left: CRUD Engine Form -->
+                <section class="admin-panel-card">
+                    <h2 class="admin-panel-title" id="form-panel-title">MOUNT NEW SYSTEM ENGINE</h2>
+                    
+                    <form id="project-form" class="admin-form">
+                        <!-- Hidden ID input for update mapping -->
+                        <input type="hidden" id="project-id" value="">
+                        
+                        <div class="admin-form-group">
+                            <label for="proj-title">PROJECT TITLE *</label>
+                            <input type="text" id="proj-title" required placeholder="e.g. HYPERION GATEWAY">
+                        </div>
+
+                        <div class="admin-double-row">
+                            <div class="admin-form-group">
+                                <label for="proj-category">CLASSIFICATION CATEGORY *</label>
+                                <select id="proj-category" required>
+                                    <option value="services">SERVICES</option>
+                                    <option value="automation">AUTOMATION</option>
+                                    <option value="modules">MODULES</option>
+                                </select>
+                            </div>
+                            <div class="admin-form-group">
+                                <label for="proj-year">DEPLOYMENT YEAR *</label>
+                                <input type="text" id="proj-year" required placeholder="e.g. 2026">
+                            </div>
+                        </div>
+
+                        <div class="admin-double-row">
+                            <div class="admin-form-group">
+                                <label for="proj-image">IMAGE PATH / METADATA URL *</label>
+                                <input type="text" id="proj-image" required placeholder="e.g. assets/project1.png">
+                            </div>
+                            <div class="admin-form-group">
+                                <label for="proj-order">GRID SEQUENCE INDEX (ORDER) *</label>
+                                <input type="number" id="proj-order" required min="1" value="1">
+                            </div>
+                        </div>
+
+                        <div class="admin-form-group">
+                            <label for="proj-role">CONTRIBUTION ROLE *</label>
+                            <input type="text" id="proj-role" required placeholder="e.g. Core Systems Architect">
+                        </div>
+
+                        <div class="admin-form-group">
+                            <label for="proj-desc-text">GRID DESCRIPTION (SHORT SUMMARY) *</label>
+                            <input type="text" id="proj-desc-text" required placeholder="e.g. A lightweight API router built in Go...">
+                        </div>
+
+                        <div class="admin-form-group">
+                            <label for="proj-long-desc">SYSTEM OVERVIEW (DETAILED DESCRIPTION) *</label>
+                            <textarea id="proj-long-desc" required rows="5" placeholder="Describe the system architecture, routing protocols, latency reductions, and core implementation details..."></textarea>
+                        </div>
+
+                        <div class="admin-form-group">
+                            <label for="proj-tech">STACK & DEPENDENCIES (COMMA SEPARATED) *</label>
+                            <input type="text" id="proj-tech" required placeholder="e.g. Go, gRPC, Docker, Redis, Kubernetes">
+                        </div>
+
+                        <!-- Dynamic Metrics Inputs -->
+                        <div class="admin-section-divider">ENGINE PERFORMANCE METRICS</div>
+                        <div id="metrics-inputs" class="admin-form">
+                            <!-- Metric 1 -->
+                            <div class="admin-triple-row">
+                                <div class="admin-form-group">
+                                    <label>METRIC 1 LABEL *</label>
+                                    <input type="text" id="metric-1-label" required placeholder="e.g. Response Time" value="Response Time">
+                                </div>
+                                <div class="admin-form-group">
+                                    <label>METRIC 1 VALUE *</label>
+                                    <input type="text" id="metric-1-value" required placeholder="e.g. 8.4ms" value="8.4ms">
+                                </div>
+                                <div class="admin-form-group">
+                                    <label>BAR LENGTH % *</label>
+                                    <input type="number" id="metric-1-percent" required min="0" max="100" value="90">
+                                </div>
+                            </div>
+                            <!-- Metric 2 -->
+                            <div class="admin-triple-row">
+                                <div class="admin-form-group">
+                                    <label>METRIC 2 LABEL *</label>
+                                    <input type="text" id="metric-2-label" required placeholder="e.g. Ingest Velocity" value="Throughput Capacity">
+                                </div>
+                                <div class="admin-form-group">
+                                    <label>METRIC 2 VALUE *</label>
+                                    <input type="text" id="metric-2-value" required placeholder="e.g. 1.2 GB/s" value="45,000 req/sec">
+                                </div>
+                                <div class="admin-form-group">
+                                    <label>BAR LENGTH % *</label>
+                                    <input type="number" id="metric-2-percent" required min="0" max="100" value="85">
+                                </div>
+                            </div>
+                            <!-- Metric 3 -->
+                            <div class="admin-triple-row">
+                                <div class="admin-form-group">
+                                    <label>METRIC 3 LABEL *</label>
+                                    <input type="text" id="metric-3-label" required placeholder="e.g. Uptime Rate" value="Automation Level">
+                                </div>
+                                <div class="admin-form-group">
+                                    <label>METRIC 3 VALUE *</label>
+                                    <input type="text" id="metric-3-value" required placeholder="e.g. 99.99%" value="Fully Self-Healing">
+                                </div>
+                                <div class="admin-form-group">
+                                    <label>BAR LENGTH % *</label>
+                                    <input type="number" id="metric-3-percent" required min="0" max="100" value="100">
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Dynamic Architecture Inputs -->
+                        <div class="admin-section-divider">SYSTEM PIPELINE DIAGRAM STEPS</div>
+                        <div id="architecture-inputs" class="admin-form">
+                            <!-- Stage 1 -->
+                            <div class="admin-arch-row">
+                                <div class="admin-form-group">
+                                    <label>STAGE 01 NAME *</label>
+                                    <input type="text" id="stage-1-name" required placeholder="e.g. Client Request" value="Client Request">
+                                </div>
+                                <div class="admin-form-group">
+                                    <label>EMOJI ICON *</label>
+                                    <input type="text" id="stage-1-icon" required placeholder="e.g. 🌐" value="🌐">
+                                </div>
+                            </div>
+                            <!-- Stage 2 -->
+                            <div class="admin-arch-row">
+                                <div class="admin-form-group">
+                                    <label>STAGE 02 NAME *</label>
+                                    <input type="text" id="stage-2-name" required placeholder="e.g. Go Gateway Router" value="Go Gateway Router">
+                                </div>
+                                <div class="admin-form-group">
+                                    <label>EMOJI ICON *</label>
+                                    <input type="text" id="stage-2-icon" required placeholder="e.g. ⚙️" value="⚙️">
+                                </div>
+                            </div>
+                            <!-- Stage 3 -->
+                            <div class="admin-arch-row">
+                                <div class="admin-form-group">
+                                    <label>STAGE 03 NAME *</label>
+                                    <input type="text" id="stage-3-name" required placeholder="e.g. Redis Cache & Limiter" value="Redis Cache & Limiter">
+                                </div>
+                                <div class="admin-form-group">
+                                    <label>EMOJI ICON *</label>
+                                    <input type="text" id="stage-3-icon" required placeholder="e.g. ⚡" value="⚡">
+                                </div>
+                            </div>
+                            <!-- Stage 4 -->
+                            <div class="admin-arch-row">
+                                <div class="admin-form-group">
+                                    <label>STAGE 04 NAME *</label>
+                                    <input type="text" id="stage-4-name" required placeholder="e.g. Microservice Node" value="Microservice Node">
+                                </div>
+                                <div class="admin-form-group">
+                                    <label>EMOJI ICON *</label>
+                                    <input type="text" id="stage-4-icon" required placeholder="e.g. 📦" value="📦">
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Form Actions -->
+                        <div class="admin-form-group" style="margin-top: 15px; flex-direction: row; gap: 15px;">
+                            <button type="submit" id="submit-btn" class="admin-btn admin-btn-accent" style="flex: 1;">
+                                MOUNT SYSTEM ENGINE
+                            </button>
+                            <button type="button" id="cancel-edit-btn" class="admin-btn" style="display: none; flex: 0.5;">
+                                CANCEL
+                            </button>
+                        </div>
+                    </form>
+                </section>
+
+                <!-- Column Right: Active Systems Monitor (Project List) -->
+                <section class="admin-panel-card" style="align-self: start;">
+                    <h2 class="admin-panel-title">ACTIVE HARDWARE METADATA MONITOR</h2>
+                    <div class="admin-project-list" id="project-list-area">
+                        <!-- Projects listed dynamically here -->
+                        <div style="font-family: var(--font-mono); font-size: 0.85rem; color: var(--text-muted); text-align: center; padding: 40px 0;">
+                            PINGING CLOUD SYSTEMS...
+                        </div>
+                    </div>
+                </section>
+            </main>
+        </div>
+    </div>
+
+    <!-- Supabase JS Client library -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="admin.js"></script>
+</body>
+</html>
