@@ -1,14 +1,12 @@
-// ==========================================================================
-// CONFIGURATION: SUPABASE CREDENTIALS
-// ==========================================================================
-// Ganti nilai di bawah ini dengan URL & Anon Key dari Dashboard Supabase Anda!
-// Lihat file 'supabase_setup_guide.md' untuk panduan mendapatkannya.
+/* ==========================================================================
+   SYSTEM CORE: CLOUD GATEWAY CONFIGURATION
+   ========================================================================== */
 const SUPABASE_URL = 'https://ikkoqfikqxgeqywvxart.supabase.co';
 const SUPABASE_ANON_KEY = 'sb_publishable_SLL5wX1jXQWDdc1bMpSehw_R3mDt2kC';
 
-// ==========================================================================
-// FALLBACK DATA (Data lokal cadangan jika Supabase belum dikonfigurasi)
-// ==========================================================================
+/* ==========================================================================
+   LOCAL FALLBACK ENGINE METADATA
+   ========================================================================== */
 const fallbackProjects = [
     {
         id: 1,
@@ -81,78 +79,70 @@ const fallbackProjects = [
     }
 ];
 
+/* ==========================================================================
+   DOM ENTRYPOINT & CONTROLLERS
+   ========================================================================== */
 document.addEventListener('DOMContentLoaded', () => {
     
-    // ==========================================================================
-    // 1. INISIALISASI SUPABASE CLIENT
-    // ==========================================================================
     let supabaseClient = null;
     let isSupabaseConfigured = false;
 
-    // Cek apakah user sudah menginputkan kunci kredensial asli
+    // Initialize Supabase if credentials are valid
     if (
-        SUPABASE_URL !== 'ISI_URL_SUPABASE_ANDA_DI_SINI' && 
-        SUPABASE_ANON_KEY !== 'ISI_ANON_KEY_SUPABASE_ANDA_DI_SINI' &&
-        SUPABASE_URL.trim() !== '' &&
-        SUPABASE_ANON_KEY.trim() !== ''
+        SUPABASE_URL && 
+        SUPABASE_ANON_KEY && 
+        !SUPABASE_URL.includes('ISI_URL') &&
+        SUPABASE_URL.trim() !== ''
     ) {
         try {
-            // Menggunakan global object 'supabase' yang di-load dari CDN di index.html
             supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
             isSupabaseConfigured = true;
-            console.log("STUDIO // SYL: Supabase Client initialized successfully.");
+            console.log("SYSTEM: Supabase engine mounted successfully.");
         } catch (error) {
-            console.error("STUDIO // SYL: Failed to initialize Supabase:", error);
+            console.error("SYSTEM_ERR: Failed to mount Supabase engine:", error);
         }
     } else {
-        console.log("STUDIO // SYL: Running in Local Fallback Mode. Configure Supabase credentials to pull from cloud.");
+        console.log("SYSTEM: Running in fallback mode.");
     }
 
-    // ==========================================================================
-    // 2. LOGIKA DRAW & RENDER GALERI SECARA DINAMIS
-    // ==========================================================================
+    // Dynamic database loader
     async function loadProjects() {
         let projects = fallbackProjects;
 
         if (isSupabaseConfigured && supabaseClient) {
             try {
-                // Fetch data dari tabel 'projects' di Supabase
                 const { data, error } = await supabaseClient
                     .from('projects')
                     .select('*')
                     .order('order_num', { ascending: true });
 
-                if (error) {
-                    throw error;
-                }
+                if (error) throw error;
 
                 if (data && data.length > 0) {
                     projects = data;
-                    console.log(`STUDIO // SYL: Successfully loaded ${data.length} projects from Supabase database.`);
+                    console.log(`SYSTEM: Dynamically pulled ${data.length} projects from cloud database.`);
                 }
             } catch (err) {
-                console.error("STUDIO // SYL: Database fetch failed, reverting to local fallback:", err);
+                console.error("SYSTEM_ERR: Database query failed, using local recovery metrics:", err);
             }
         }
 
         renderGallery(projects);
-        initializeScrollReveal(); // Aktifkan scroll reveal setelah elemen di-render ke DOM
+        initializeScrollReveal();
     }
 
+    // Render nodes to DOM
     function renderGallery(projects) {
         const galleryGrid = document.querySelector('.gallery-grid');
         if (!galleryGrid) return;
 
-        // Kosongkan galeri statis terlebih dahulu
         galleryGrid.innerHTML = '';
 
-        // Gambar ulang semua elemen kartu proyek dari database/fallback
         projects.forEach(project => {
             const card = document.createElement('div');
             card.className = 'project-card';
             card.setAttribute('data-category', project.category);
 
-            // Supabase menggunakan 'desc_text', fallback lokal juga memilikinya
             const description = project.desc_text || project.desc || '';
 
             card.innerHTML = `
@@ -169,7 +159,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 </div>
             `;
 
-            // Bind klik untuk membuka modal detail proyek
             card.addEventListener('click', () => {
                 openProjectModal(project);
             });
@@ -177,22 +166,17 @@ document.addEventListener('DOMContentLoaded', () => {
             galleryGrid.appendChild(card);
         });
 
-        // Perbarui jumlah total proyek di tombol filter "ALL [N]"
         const allFilterBtn = document.querySelector('.filter-btn[data-filter="all"]');
         if (allFilterBtn) {
             allFilterBtn.textContent = `ALL [${projects.length}]`;
         }
 
-        // Inisialisasi ulang event listener filter untuk elemen DOM yang baru dibuat
         initializeFilters();
     }
 
-    // Jalankan pemuatan proyek
     loadProjects();
 
-    // ==========================================================================
-    // 3. SCROLL REVEAL ANIMATIONS (Intersection Observer)
-    // ==========================================================================
+    // Intersection Observer for scroll triggers
     function initializeScrollReveal() {
         const revealElements = document.querySelectorAll('.scroll-reveal');
         
@@ -216,20 +200,16 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // ==========================================================================
-    // 4. PORTFOLIO FILTER FUNCTIONALITY
-    // ==========================================================================
+    // Category sorting dispatcher
     function initializeFilters() {
         const filterButtons = document.querySelectorAll('.filter-btn');
         const projectCards = document.querySelectorAll('.project-card');
 
         filterButtons.forEach(button => {
-            // Lepas event listener lama jika ada untuk menghindari penumpukan
             const newButton = button.cloneNode(true);
             button.parentNode.replaceChild(newButton, button);
             
             newButton.addEventListener('click', () => {
-                // Perbarui kelas aktif
                 document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
                 newButton.classList.add('active');
 
@@ -240,7 +220,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     
                     if (filterValue === 'all' || category === filterValue) {
                         card.style.display = 'flex';
-                        void card.offsetWidth; // Trigger reflow
+                        void card.offsetWidth;
                         card.style.opacity = '1';
                         card.style.transform = 'scale(1)';
                     } else {
@@ -257,9 +237,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // ==========================================================================
-    // 5. CONTACT FORM SUBMISSION
-    // ==========================================================================
+    // Contact form ingestion pipeline
     const contactForm = document.getElementById('portfolio-form');
     const formFeedback = document.getElementById('form-feedback');
 
@@ -296,9 +274,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // ==========================================================================
-    // 6. MICRO-INTERACTIVE: MAGNETIC LOGO & NAVIGATION FEEL
-    // ==========================================================================
+    // Interactive magnetic logo trigger
     const brandLogo = document.getElementById('brand-logo');
     if (brandLogo) {
         brandLogo.addEventListener('mouseenter', () => {
@@ -309,10 +285,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // ==========================================================================
-    // 7. DYNAMIC PROJECT DETAIL MODAL
-    // ==========================================================================
-    // Fallback default values for projects that might come from Supabase without full metrics
+    // Interactive brutalist overlay modal controllers
     const defaultTechStack = ["Docker", "Linux", "REST API", "SQL", "Git"];
     const defaultMetrics = [
         { label: "Execution Time", value: "50ms", percent: 80 },
@@ -335,7 +308,6 @@ document.addEventListener('DOMContentLoaded', () => {
     function openProjectModal(project) {
         if (!modal || !contentArea) return;
 
-        // Resolve data with defaults
         const techStack = project.tech_stack || defaultTechStack;
         const metrics = project.metrics || defaultMetrics;
         const architecture = project.architecture || defaultArchitecture;
@@ -345,7 +317,6 @@ document.addEventListener('DOMContentLoaded', () => {
         const year = project.year || "2026";
         const title = project.title || "PROJECT DETAIL";
 
-        // Render dynamic content
         contentArea.innerHTML = `
             <div class="modal-header">
                 <span class="modal-meta">${category.toUpperCase()} // ${year}</span>
@@ -354,7 +325,6 @@ document.addEventListener('DOMContentLoaded', () => {
             </div>
             
             <div class="modal-body-grid">
-                <!-- Left Column: Details, Tech, Metrics -->
                 <div class="modal-left-col">
                     <div class="modal-section-title">SYSTEM OVERVIEW</div>
                     <p class="modal-long-desc">${longDesc}</p>
@@ -380,7 +350,6 @@ document.addEventListener('DOMContentLoaded', () => {
                     </div>
                 </div>
                 
-                <!-- Right Column: Architecture Flow -->
                 <div class="modal-right-col">
                     <div class="modal-section-title">SYSTEM ARCHITECTURE FLOW</div>
                     <div class="architecture-flow">
@@ -405,12 +374,10 @@ document.addEventListener('DOMContentLoaded', () => {
             </div>
         `;
 
-        // Display Modal
         modal.setAttribute('aria-hidden', 'false');
         modal.classList.add('active');
         document.body.style.overflow = 'hidden';
 
-        // Animate performance metrics
         setTimeout(() => {
             const fills = modal.querySelectorAll('.metric-bar-fill');
             fills.forEach(fill => {
@@ -426,14 +393,12 @@ document.addEventListener('DOMContentLoaded', () => {
         modal.classList.remove('active');
         document.body.style.overflow = '';
 
-        // Reset bar widths
         const fills = modal.querySelectorAll('.metric-bar-fill');
         fills.forEach(fill => {
             fill.style.width = '0%';
         });
     }
 
-    // Modal Close Trigger Bindings
     if (closeBtn) {
         closeBtn.addEventListener('click', closeProjectModal);
     }
