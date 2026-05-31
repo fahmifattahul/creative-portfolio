@@ -3,8 +3,8 @@
 // ==========================================================================
 // Ganti nilai di bawah ini dengan URL & Anon Key dari Dashboard Supabase Anda!
 // Lihat file 'supabase_setup_guide.md' untuk panduan mendapatkannya.
-const SUPABASE_URL = 'ISI_URL_SUPABASE_ANDA_DI_SINI';
-const SUPABASE_ANON_KEY = 'ISI_ANON_KEY_SUPABASE_ANDA_DI_SINI';
+const SUPABASE_URL = 'https://ikkoqfikqxgeqywvxart.supabase.co';
+const SUPABASE_ANON_KEY = 'sb_publishable_SLL5wX1jXQWDdc1bMpSehw_R3mDt2kC';
 
 // ==========================================================================
 // FALLBACK DATA (Data lokal cadangan jika Supabase belum dikonfigurasi)
